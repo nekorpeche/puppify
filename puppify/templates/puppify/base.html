@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My amazing site{% endblock %}</title>
+    {% load static %}
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'puppify/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+<header>
+    {% block header %}
+
+        <div class="logo">
+            {% load static %}
+            <img src="{% static 'puppify/logop.png' %}" alt="My image">
+        </div>
+        <!-- Visiteur lambda -->
+        <div class="menu">
+        {% block menu %}
+    <!-- if connecte
+            <nav>
+                <a href="#">Mon espace</a>
+                <a href="#">Mes favoris</a>
+                <a href="#">A propos</a>
+            </nav>
+    -->
+            <nav>
+                <a href="#">Inscription</a>
+                <a href="#">Connexion</a>
+                <a href="#">A propos</a>
+            </nav>
+        </div>
+        {% endblock %}
+
+    {% endblock %}
+    </div>
+</header>
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+        <div class="logo">
+            {% load static %}
+            <img src="{% static 'puppify/logop.png' %}" alt="Puppify">
+        </div>
+        <p>© 1998 – 2020</p>
+</footer>
+
+</body>
+</html>
