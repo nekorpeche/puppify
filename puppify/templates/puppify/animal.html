@@ -1,0 +1,67 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Animal{% endblock %}
+{% block content %}
+<div class="animal_container">
+     <div class="titre"><p>{{ msg }}</p></div>
+    <div class="animal_desc">
+        <figure>
+            {% load static %}
+            <img src="{% static 'puppify/logop.png' %}" alt="My image">
+        </figure>
+        <div class="description">
+            <p class="label">Description :</p>
+            <p class="about">{{animal.description}}</p>
+
+        </div>
+         <div class="perso_menu">
+    {% if request.session.utilisateur_admin %}
+        <a href="{% url 'puppify:manage_animal' %}">Retourner à la gestion des animaux</a>
+        {% else %}
+
+        {% endif %}
+    </div>
+    </div>
+    <div class="animal_detail">
+
+        <p class="nom_animal">Hello my name is <span class="orange">{{animal.nom}}</span> !</p>
+
+         {% if animal.sexe == "F" %}
+                         <p class="about">Sexe : Female</p>
+                        {% else %}
+                       <p class="about">Sexe : Male</p>
+                        {% endif %}
+
+
+        <p class="about">Race : {{ animal.race}}</p>
+
+        <p class="about">Age : {{ animal.age}}</p>
+
+
+
+        {% if form_true %}
+        <form action="{% url 'puppify:contact' %}" method="post" >
+            {% csrf_token %}
+            <input type="hidden" id="animal" name="animal" value="{{ animal.idanimal }}"/>
+            <button name="subject" type="submit" value="voir">Contact proprio</button>
+         {% endif %}
+
+        </form>
+    </div>
+    <div class="right-corner">
+        {% if connecte %}
+            {% if bool %}
+                <a href="/puppify/{{ animal.idanimal }}/add"><i class='fa fa-heart' style='font-size:70px;color:red'></i></a>
+            {% else %}
+                <a href="/puppify/{{ animal.idanimal }}/add"><i class='fa fa-heart-o' style='font-size:70px;color:red'></i></a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'puppify:connexion' %}"><i class='fa fa-user' style='font-size:70px;color:red'></i></a>
+        {% endif%}
+    </div>
+
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<div class="choice_container" >
+    <div class="titre"><p>Ajouter un animal</p></div>
+    <div class="card_choice">
+        <a href="{% url 'puppify:add_chien' %}">
+            {% load static %}
+            <img src="{% static 'puppify/chien.png' %}" alt="chien" style="width:100%">
+        </a>
+    </div>
+
+    <div class="card_choice">
+        <a href="{% url 'puppify:add_chat' %}">
+            {% load static %}
+            <img src="{% static 'puppify/chat.png' %}" alt="chat" style="width:100%">
+        </a>
+    </div>
+
+</div>
+{% endblock %}

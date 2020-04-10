@@ -1,0 +1,56 @@
+{% extends 'puppify/base.html' %}
+
+
+{% block title %}Inscription{% endblock %}
+{% block content %}
+
+<div class="perso_container">
+    <div class="titre"><p>Formulaire d'adoption</p></div>
+    <div class="formulaire">
+        <form action="recap_form" method="post">
+            {% csrf_token %}
+
+            <p>
+            {% if form_filled %}
+                    {% for q,r in qr %}<hr>
+
+                <label for="id_question_{{ q.idquestion }}">{{ q}}</label>
+                <input type="hidden" id="id_question_{{ q.idquestion }}" name="q" value="{{ q.idquestion }}"/>
+            </p>
+            <p>
+                <label for="id_answer_{{ q.id }}">Réponse :</label>
+
+                    <input type="text" id="id_answer_{{ q.id }}"  value="{{ r.reponse }}" name="answer{{q.idquestion}}" required/>
+            </p>
+                    {% endfor %}<hr>
+            {% else %}
+            {% for question in questions %}<hr>
+
+                <label for="id_question_{{ question.id }}">{{ question }}</label>
+                <input type="hidden" id="id_question_{{ question.id }}" name="question" value="{{ question.idquestion }}"/>
+            </p>
+            <p>
+                <label for="id_answer_{{ question.id }}">Réponse :</label>
+
+                    <input type="text" id="id_answer_{{ question.id }}"  name="answer{{question.idquestion}}" required/>
+            </p>
+                    {% endfor %}<hr>
+            {% endif %}
+
+            <p>
+                <label for="id_user"> User : {{user.idpersonne}}</label>
+                <input type="hidden" id="id_user" name="user" value="{{ user.idpersonne }}" /><!-- <select name="{{ logged_user }}" size="1">
+                  <option id="{{ logged_user.id }}">{{ logged_user }}</option>
+                </select> -->
+            </p>
+            <p>
+            <br><br><br>
+                <input type="submit" value="Valider">
+            </p>
+
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

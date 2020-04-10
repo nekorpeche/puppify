@@ -1,0 +1,23 @@
+{% extends 'puppify/base.html' %}
+{% block title %}Favoris{% endblock %}
+
+{% block content %}
+<div class="animals_home">
+{% if animals %}
+        {% for a in animals %}
+            <div class="card">
+                <a href="/puppify/{{ a.idanimal }}/">
+                {% load static %}
+                  <img src="{% static 'puppify/default_pet.png' %}" alt="animal" style="width:100%">
+                    <div class="card_container">
+                        <p>{{ a.nom }}</p>
+                    </div>
+                </a>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <p>No animals added yet !</p>
+    {% endif %}
+</div>
+{% endblock %}

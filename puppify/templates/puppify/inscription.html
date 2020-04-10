@@ -1,0 +1,18 @@
+{% extends 'puppify/base.html' %}
+
+
+{% block title %}Inscription{% endblock %}
+{% block content %}
+<div class="perso_container" >
+    <div class="titre"><p>Inscription</p></div>
+    <div class="formulaire">
+        <form action="connexion" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>{{ field.label_tag }}{{ field }}</p>
+            {% endfor %}
+         <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'puppify/base.html' %}
+{% block title %}Administration
+{% endblock %}
+{% block content %}
+<div class="perso_container">
+    <div class="perso_menu">
+<!--        <a href="{% url 'puppify:add_animal' %}"><i class="	fa fa-plus-circle" style="font-size:24px"></i>Ajouter un animal</a>-->
+        <a href="{% url 'puppify:gerer_form' %}"><i class="	fa fa-heart" style="font-size:24px"></i>Gérer formulaire adoption</a>
+        <a href="{% url 'puppify:manage_animal' %}"><i class="	fa fa-plus-circle"   style="font-size:24px"></i>Gérer ajout animal</a>
+        <a href="{% url 'puppify:user_details' %}"><i class="fa fa-user" style="font-size:24px"></i>Mon compte</a>
+        <a href="{% url 'puppify:myanimals' %}"><i class="fa fa-paw" style="font-size:24px"></i>Gérer les animaux</a>
+        <a href="{% url 'puppify:logout' %}"><i class="	fa fa-power-off" style="font-size:24px"></i>Deconnexion</a>
+    </div>
+    <div class="perso_info">
+        <div class="presentation">
+        <p>Hello {{request.session.utilisateur_prenom}} {{request.session.utilisateur_nom|upper}} !</p>
+        {% load static %}
+            <img src="{% static 'puppify/logop.png' %}" alt="My image">
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

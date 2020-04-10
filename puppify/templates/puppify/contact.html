@@ -1,0 +1,27 @@
+{% extends 'puppify/base.html' %}
+
+
+{% block title %}Contact{% endblock %}
+{% block content %}
+
+<div class="perso_container">
+    <div class="titre"><p>Contact</p></div>
+    <div class="formulaire">
+<p>{% if msg %}{{ msg }}{% endif %}</p>
+        <form action="{% url 'puppify:contact' %}" method="post">
+            {% csrf_token %}
+            <label for="animal_contact">Animal : {{ animal.nom }}</label>
+            <input type="hidden" id="animal_contact" name="animal_contact" value="{{animal.idanimal}}"/>
+            <hr>
+            <label for="titre">Titre</label>
+            <input type="text" id="titre" name="titre" />
+            <hr>
+            <label for="texte">Texte</label>
+            <!--<input type="text" id="texte" name="texte" />-->
+            <textarea id="texte" name="texte" rows="5" cols="100"></textarea>
+            <hr>
+            <input type="submit" value="Valider">
+        </form>
+    </div>
+</div>
+{% endblock %}

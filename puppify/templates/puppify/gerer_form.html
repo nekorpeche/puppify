@@ -1,0 +1,35 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Gérer les formulaires d'adoption{% endblock %}
+
+{% block content %}
+<div class="container">
+
+
+    <div class="liste_animal">
+    {% if users %}
+        {% for u in users %}
+            <li>
+                {% load static %}
+                  <img src="{% static 'puppify/default_pet.png' %}" alt="user">
+                        <p>{{ u.idpersonne.nom |upper}} {{ u.idpersonne.prenom}}</p>
+
+                   <form action="recap_form" method="post" >
+                       {% csrf_token %}
+                    <input type="hidden" id="{{ u.idpersonne }}" name="user" value="{{ u.idpersonne }}"/>
+                       <button name="subject" type="submit" value="accepter"><i class="fa fa-check" ></i></button>
+                       <button name="subject" type="submit" value="refuser"><i class="fa fa-close" ></i></button>
+                       <button name="subject" type="submit" value="voir"><i class="fa fa-eye" ></i></button>
+
+                    </form>
+
+
+           </li>
+
+        {% endfor %}
+    {% else %}
+        <p>No forms to be accepted yet.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

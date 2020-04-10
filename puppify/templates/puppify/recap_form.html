@@ -1,0 +1,25 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Formulaire d'adoption{% endblock %}
+
+{% block content %}
+<div class="perso_container" >
+    <div class="perso_menu">
+
+        <div class="titre"><p>{{ msg }}</p></div>
+        <div class="formulaire">
+            <p>Utilisateur : {{ pers.idpersonne.nom |upper }} {{ pers.idpersonne.prenom }}</p>
+        {% for q,r in liste %}
+            <p><span class="question">{{q}}</span> {{r.reponse}}</p>
+        {% endfor %}
+        </div>
+{% if request.session.utilisateur_admin %}
+        <a href="{% url 'puppify:gerer_form' %}">Retourner à la gestion des formulaires</a>
+        {% else %}
+        <a href="{% url 'puppify:page_utilisateur' %}">Retourner à son espace</a>
+        {% endif %}
+
+
+</div>
+</div>
+{% endblock %}

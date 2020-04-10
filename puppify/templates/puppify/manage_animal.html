@@ -1,0 +1,41 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Gérer ajout animaux{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="liste_animal">
+    {% if liste %}
+
+        {% for a,p in liste %}
+        <li>
+
+                   {% load static %}
+                  <img src="{% static 'puppify/default_pet.png' %}" alt="animal">
+                   <p>{{ p.nom |upper}} {{ p.prenom }}</p>
+
+
+                {% load static %}
+                  <img src="{% static 'puppify/default_pet.png' %}" alt="animal">
+                   <p>{{ a.nom }}</p>
+                <div>
+                    <!-- <a href="/puppify/{{ a.idanimal }}/" ><i class="fa fa-eye" ></i></a> -->
+                    <form action="/puppify/{{ a.idanimal }}/" method="post" >
+                       {% csrf_token %}
+                        <input type="hidden" id="{{ a.idanimal }}" name="animal" value="{{ a }}"/>
+                       <button name="subject" type="submit" value="accepter"><i class="fa fa-check" ></i></button>
+                       <button name="subject" type="submit" value="refuser"><i class="fa fa-close" ></i></button>
+                       <button name="subject" type="submit" value="voir"><i class="fa fa-eye" ></i></button>
+
+                    </form>
+                </div>
+        </li>
+        {% endfor %}
+
+    {% else %}
+        <p>No animals are available.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

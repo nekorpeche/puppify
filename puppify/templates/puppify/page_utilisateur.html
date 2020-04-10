@@ -1,0 +1,30 @@
+{% extends 'puppify/base.html' %}
+{% block title %}Mon compte{% endblock %}
+{% block content %}
+<div class="perso_container" >
+    <div class="perso_menu">
+        <a href="{% url 'puppify:add_animal' %}"><i class="	fa fa-plus-circle" style="font-size:24px"></i>Ajouter un animal</a>
+        <a href="{% url 'puppify:favorite' %}"><i class="	fa fa-heart" style="font-size:24px"></i>Favoris</a>
+        <a href="{% url 'puppify:user_details' %}"><i class="fa fa-user" style="font-size:24px"></i>Mon compte</a>
+        <a href="{% url 'puppify:myanimals' %}"><i class="fa fa-paw" style="font-size:24px"></i>Gérer mes annonces</a>
+        <a href="{% url 'puppify:logout' %}"><i class="	fa fa-power-off" style="font-size:24px"></i>Deconnexion</a>
+    </div>
+    <div class="perso_info">
+        <div class="presentation">
+        <p>Hello {{request.session.utilisateur_prenom}} {{request.session.utilisateur_nom|upper}} !</p>
+        {% load static %}
+            <img src="{% static 'puppify/logop.png' %}" alt="My image">
+        </div>
+        <div class="right-corner adopt_form">
+            <p>Formulaire d'adoption</p>
+            {% if form_filled %}
+                <p>Le formulaire a bien été rempli <a href="{% url 'puppify:form_adoption' %}" class="bouton">Le modifier</a></p>
+            {% else %}
+                <a href="{% url 'puppify:form_adoption' %}" class="bouton">Remplir le formulaire</a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

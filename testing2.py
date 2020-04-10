@@ -9,81 +9,18 @@ from django.db import models
 
 
 class Animal(models.Model):
-    idanimal = models.AutoField(db_column='idAnimal', primary_key=True)  # Field name made lowercase.
+    idanimal = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=25, blank=True, null=True)
     sexe = models.CharField(max_length=1, blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     race = models.CharField(max_length=25, blank=True, null=True)
     age = models.CharField(max_length=7, blank=True, null=True)
-    isanimalajoute = models.IntegerField(db_column='isAnimalAjoute', blank=True, null=True)  # Field name made lowercase.
-    idpersonne = models.ForeignKey('Personne', models.DO_NOTHING, db_column='idPersonne', blank=True, null=True)  # Field name made lowercase.
+    isanimalajoute = models.BooleanField(blank=True, null=True)
+    idpersonne = models.ForeignKey('Personne', models.DO_NOTHING, db_column='idpersonne', blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'Animal'
-
-
-class Chat(models.Model):
-    idanimal = models.OneToOneField(Animal, models.DO_NOTHING, db_column='idAnimal', primary_key=True)  # Field name made lowercase.
-    racechat = models.CharField(db_column='raceChat', max_length=25, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Chat'
-
-
-class Chien(models.Model):
-    idanimal = models.OneToOneField(Animal, models.DO_NOTHING, db_column='idAnimal', primary_key=True)  # Field name made lowercase.
-    racechien = models.CharField(db_column='raceChien', max_length=25, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Chien'
-
-
-class Favoris(models.Model):
-    idpersonne = models.OneToOneField('Personne', models.DO_NOTHING, db_column='idPersonne', primary_key=True)  # Field name made lowercase.
-    idanimal = models.ForeignKey(Animal, models.DO_NOTHING, db_column='idAnimal')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Favoris'
-        unique_together = (('idpersonne', 'idanimal'),)
-
-
-class Image(models.Model):
-    idimage = models.AutoField(db_column='idImage', primary_key=True)  # Field name made lowercase.
-    url = models.CharField(max_length=50, blank=True, null=True)
-    libelle = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'Image'
-
-
-class Personne(models.Model):
-    idpersonne = models.AutoField(db_column='idPersonne', primary_key=True)  # Field name made lowercase.
-    nom = models.CharField(max_length=25, blank=True, null=True)
-    prenom = models.CharField(max_length=25, blank=True, null=True)
-    numero = models.IntegerField(blank=True, null=True)
-    mail = models.CharField(max_length=50, blank=True, null=True)
-    mdp = models.CharField(max_length=50, blank=True, null=True)
-    isadmin = models.IntegerField(db_column='isAdmin', blank=True, null=True)  # Field name made lowercase.
-    idimage = models.ForeignKey(Image, models.DO_NOTHING, db_column='idImage', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Personne'
-
-
-class Utilisateur(models.Model):
-    idpersonne = models.OneToOneField(Personne, models.DO_NOTHING, db_column='idPersonne', primary_key=True)  # Field name made lowercase.
-    isformaccepted = models.IntegerField(db_column='isFormAccepted', blank=True, null=True)  # Field name made lowercase.
-    isformfilled = models.IntegerField(db_column='isFormFilled', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Utilisateur'
+        db_table = 'animal'
 
 
 class AuthGroup(models.Model):
@@ -118,13 +55,13 @@ class AuthPermission(models.Model):
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
+    is_superuser = models.BooleanField()
     username = models.CharField(unique=True, max_length=150)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
+    is_staff = models.BooleanField()
+    is_active = models.BooleanField()
     date_joined = models.DateTimeField()
 
     class Meta:
@@ -152,11 +89,29 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class Chat(models.Model):
+    idanimal = models.OneToOneField(Animal, models.DO_NOTHING, db_column='idanimal', primary_key=True)
+    racechat = models.CharField(max_length=25, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'chat'
+
+
+class Chien(models.Model):
+    idanimal = models.OneToOneField(Animal, models.DO_NOTHING, db_column='idanimal', primary_key=True)
+    racechien = models.CharField(max_length=25, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'chien'
+
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
     object_repr = models.CharField(max_length=200)
-    action_flag = models.PositiveSmallIntegerField()
+    action_flag = models.SmallIntegerField()
     change_message = models.TextField()
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
@@ -194,3 +149,86 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Favoris(models.Model):
+    idpersonne = models.OneToOneField('Personne', models.DO_NOTHING, db_column='idpersonne', primary_key=True)
+    idanimal = models.ForeignKey(Animal, models.DO_NOTHING, db_column='idanimal')
+
+    class Meta:
+        managed = False
+        db_table = 'favoris'
+        unique_together = (('idpersonne', 'idanimal'),)
+
+
+class Formulaire(models.Model):
+    idform = models.AutoField(primary_key=True)
+    libelle_form = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'formulaire'
+
+
+class Image(models.Model):
+    idimage = models.AutoField(primary_key=True)
+    url = models.CharField(max_length=50, blank=True, null=True)
+    libelle = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'image'
+
+
+class Personne(models.Model):
+    idpersonne = models.AutoField(primary_key=True)
+    nom = models.CharField(max_length=25, blank=True, null=True)
+    prenom = models.CharField(max_length=25, blank=True, null=True)
+    numero = models.IntegerField(blank=True, null=True)
+    mail = models.CharField(max_length=50, blank=True, null=True)
+    mdp = models.CharField(max_length=50, blank=True, null=True)
+    isadmin = models.BooleanField(blank=True, null=True)
+    idimage = models.ForeignKey(Image, models.DO_NOTHING, db_column='idimage', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'personne'
+
+
+class Question(models.Model):
+    idquestion = models.AutoField(primary_key=True)
+    libelle_question = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'question'
+
+
+class Questionform(models.Model):
+    idqf = models.AutoField(primary_key=True)
+    idquestion = models.ForeignKey(Question, models.DO_NOTHING, db_column='idquestion', blank=True, null=True)
+    idform = models.ForeignKey(Formulaire, models.DO_NOTHING, db_column='idform', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'questionform'
+
+
+class Reponse(models.Model):
+    idreponse = models.AutoField(primary_key=True)
+    idquestion = models.ForeignKey(Question, models.DO_NOTHING, db_column='idquestion', blank=True, null=True)
+    idpersonne = models.ForeignKey('Utilisateur', models.DO_NOTHING, db_column='idpersonne', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'reponse'
+
+
+class Utilisateur(models.Model):
+    idpersonne = models.OneToOneField(Personne, models.DO_NOTHING, db_column='idpersonne', primary_key=True)
+    isformaccepted = models.BooleanField(blank=True, null=True)
+    isformfilled = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'utilisateur'

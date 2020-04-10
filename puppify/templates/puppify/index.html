@@ -3,5 +3,34 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="filter">
+         <form method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+    </form>
 
+    </div>
+    <div class="animals_home">
+
+    {% for a in filter.qs %}
+            <div class="card">
+                <a href="/puppify/{{ a.idanimal }}/">
+                {% load static %}
+                  <img src="{% static 'puppify/default_pet.png' %}" alt="animal" style="width:100%">
+                    <div class="card_container">
+                        <p>{{ a.nom }}</p>
+                        {% if a.sexe == "F" %}
+                        <p>{{a.age}} - Female</p>
+                        {% else %}
+                       <p>{{a.age}} - Male</p>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+
+    {% endfor %}
+
+    </div>
+</div>
 {% endblock %}

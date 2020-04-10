@@ -1,0 +1,14 @@
+{% extends 'puppify/base.html' %}
+
+{% block title %}Deconnexion{% endblock %}
+
+{% block content %}
+<div class="perso_container" >
+    <div class="perso_menu">
+    <p>Déconnexion réussie ! </p>
+
+    <a href="{% url 'puppify:connexion' %}">Accéder au monde des animaux ! (Se connecter)</a>
+    <a href="{% url 'puppify:inscription' %}">S'ouvrir un accès au monde des animaux ! (S'inscrire)</a>
+</div>
+</div>
+{% endblock %}
