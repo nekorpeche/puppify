@@ -1,14 +1,11 @@
 from django.urls import path
-from django.conf.urls import url
-from django_filters.views import FilterView
+
 
 from . import views
 
 app_name = 'puppify'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('test', views.product_list, name='test'),
-    url(r'^list$', views.product_list),
     path('<int:animal_id>/', views.animal, name='animal'),
     path('<int:animal_id>/add', views.add_favorite, name='add_favorite'),
     path('<int:animal_id>/edit_animal', views.edit_animal, name='edit_animal'),

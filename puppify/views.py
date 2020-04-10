@@ -3,15 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Animal,Utilisateur,Personne, Favoris,Question,Formulaire,Questionform,Reponse,Chien,Chat
 from django.template.response import TemplateResponse
 from puppify import forms
-from puppify import filters
 from django.core.mail import send_mail
-from django.core import mail
+
 
 
 def index(request):
      animals = Animal.objects.filter(isanimalajoute = True)
-     #filter = AnimalFilter(request.GET, queryset=Product.objects.all())
-     filter = filters.AnimalFilter(request.GET,queryset=Animal.objects.all())
+
+     filter = "null"
      if request.POST == True:
          pass
      context = { 'animals':animals,'filter':filter,}
@@ -147,7 +146,7 @@ def page_utilisateur(request):
 
 
         animal_ajoute = False
-        a = Animal(nom = n,sexe = s,description = d,age=ag,idpersonne=pers,race=r,isanimalajoute = animal_ajoute)
+        a = Animal(nom = n,sexe = s,description = d,age=ag,idpersonne=pers,race=r,isanimalajoute = animal_ajoute,type="CHIEN")
         a.save()
         x = Animal.objects.latest('idanimal')
         race = Chien(idanimal = x,racechien=r)
@@ -163,7 +162,7 @@ def page_utilisateur(request):
         id = request.session['utilisateur_id']
         pers = Personne.objects.get(idpersonne = id)
         animal_ajoute = False
-        a = Animal(nom = n,sexe = s,description = d,age=ag,idpersonne=pers,race=r,isanimalajoute = animal_ajoute)
+        a = Animal(nom = n,sexe = s,description = d,age=ag,idpersonne=pers,race=r,isanimalajoute = animal_ajoute,type="CHAT")
         a.save()
         x = Animal.objects.latest('idanimal')
         race = Chat(idanimal = x,racechat=r)
@@ -389,9 +388,4 @@ def contact(request):
             send_mail(titre, message, 'noreply.puppify@gmail.com', [str(animal.idpersonne.mail)])
 
     return render(request, template, context)
-
-
-def product_list(request):
-    f = filters.AnimalFilter(request.GET, queryset=Animal.objects.all())
-    return render(request, 'puppify/test.html', {'filter': f})
 

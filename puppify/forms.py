@@ -76,7 +76,7 @@ class ChienForm(ModelForm):
     race = forms.ChoiceField(choices=race_CHOICES, required=True)
     class Meta:
         model = Animal
-        exclude = ['idpersonne','isanimalajoute','idanimal','sexe','age','race']
+        exclude = ['idpersonne','isanimalajoute','idanimal','sexe','age','race','type']
 
 class ChatForm(ModelForm):
     sexe_CHOICES = [('F', 'Female'),
@@ -92,5 +92,5 @@ class ChatForm(ModelForm):
 
     class Meta:
         model = Animal
-        exclude = ['idpersonne','isanimalajoute','idanimal','sexe','age','race']
+        exclude = ['idpersonne','isanimalajoute','idanimal','sexe','age','race','type']
 
