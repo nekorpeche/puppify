@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ SECRET_KEY = '@u8-27=6)gve&)(_zlss@^ku)ay-y-7kfantf%!4!kzd#88z+4'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['puppify.herokuapp.com', '127.0.0.1:8000']
-ALLOWED_HOSTS = ['sheltered-fjord-57393.herokuapp.com' ]
+ALLOWED_HOSTS = ['sheltered-fjord-57393.herokuapp.com','127.0.0.1']
 
 # Application definition
 
@@ -143,4 +144,6 @@ import dj_database_url
 
 prod_db = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
+django_heroku.settings(locals())
 
