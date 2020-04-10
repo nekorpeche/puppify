@@ -26,7 +26,7 @@ SECRET_KEY = '@u8-27=6)gve&)(_zlss@^ku)ay-y-7kfantf%!4!kzd#88z+4'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['puppify.herokuapp.com', '127.0.0.1:8000']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sheltered-fjord-57393.herokuapp.com' ]
 
 # Application definition
 
