@@ -4,13 +4,15 @@ from .models import Animal,Utilisateur,Personne, Favoris,Question,Formulaire,Que
 from django.template.response import TemplateResponse
 from puppify import forms
 from django.core.mail import send_mail
+from puppify import filters
 
 
 
 def index(request):
      animals = Animal.objects.filter(isanimalajoute = True)
 
-     filter = "null"
+     filter = filters.AnimalFilter(request.GET, queryset=Animal.objects.filter(isanimalajoute = True))
+     #ProductFilter(request.GET, queryset=Product.objects.all())
      if request.POST == True:
          pass
      context = { 'animals':animals,'filter':filter,}

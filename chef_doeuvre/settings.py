@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['puppify.herokuapp.com','127.0.0.1']
 
 INSTALLED_APPS = [
     'puppify.apps.PuppifyConfig',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
