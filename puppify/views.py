@@ -5,6 +5,7 @@ from django.template.response import TemplateResponse
 from puppify import forms
 from django.core.mail import send_mail
 from puppify import filters
+from django.contrib import messages
 
 
 
@@ -71,6 +72,8 @@ def connexion(request):
         form.save()
         x = Personne.objects.latest('idpersonne')
         user = Utilisateur.objects.get_or_create(idpersonne=x)
+    else:
+        messages.add_message(request, messages.ERROR, 'Error!')
     form = forms.ConnexionForm()
     context = {'form': form, }
     response = TemplateResponse(request, 'puppify/connexion.html', context)

@@ -3,6 +3,7 @@ from puppify.models import Personne,Reponse,Question,Formulaire,Questionform,Ani
 from django import forms
 
 
+
 class PersonneForm(ModelForm):
     mdp = forms.CharField(max_length=32, widget=forms.PasswordInput)
     mdp2 =forms.CharField(max_length=32, widget=forms.PasswordInput)
@@ -10,25 +11,24 @@ class PersonneForm(ModelForm):
         model = Personne
         exclude = ['isadmin','idimage']
 
-        def clean(self):
-            cleaned_data = super().clean()
+    def clean(self):
+            cleaned_data = super(PersonneForm, self).clean()
             mdp= cleaned_data.get("mdp")
             mdp2 = cleaned_data.get("mdp2")
             mail = cleaned_data.get("mail")
             if mail :
-                x = Personne.objects.filter(mail = mail).count()
-                if x == 1:
-                    raise forms.ValidationError(
-                        "Ce mail est déjà utilisé !  "
-                    )
-
-
+                x = Personne.objects.filter(mail = mail)
+                if x.exists():
+                    print('validation error raised')
+                    raise forms.ValidationError("Ce mail est déjà utilisé !  ")
             if mdp and mdp2:
-                # Only do something if both fields are valid so far.
                 if mdp2 != mdp:
                     raise forms.ValidationError(
                         "Les mots de passes ne correspondent pas ! "
                     )
+            return self.cleaned_data
+
+
 
 class ConnexionForm(forms.Form):
     mail = forms.EmailField(label='Email', max_length=100)

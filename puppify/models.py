@@ -11,7 +11,7 @@ class Animal(models.Model):
     age = models.CharField(max_length=7, blank=True, null=True)
     isanimalajoute = models.BooleanField(blank=True, null=True)
     type = models.CharField(blank = True,null=True,max_length=25)
-    idpersonne = models.ForeignKey('Personne', models.DO_NOTHING, db_column='idpersonne', blank=True, null=True)
+    idpersonne = models.ForeignKey('Personne', models.CASCADE, db_column='idpersonne', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -194,6 +194,10 @@ class Personne(models.Model):
 
     def __str__(self):
         return '%s' % (self.idpersonne)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
 
 class Question(models.Model):
