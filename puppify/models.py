@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -222,7 +221,7 @@ class Questionform(models.Model):
 class Reponse(models.Model):
     idreponse = models.AutoField(primary_key=True)
     idquestion = models.ForeignKey(Question, models.DO_NOTHING, db_column='idquestion', blank=True, null=True)
-    idpersonne = models.ForeignKey('Utilisateur', models.DO_NOTHING, db_column='idpersonne', blank=True, null=True)
+    idpersonne = models.ForeignKey('Utilisateur', models.CASCADE, db_column='idpersonne', blank=True, null=True)
     reponse = models.CharField(max_length=200,blank=True, null=True)
 
     class Meta:

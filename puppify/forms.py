@@ -10,11 +10,25 @@ class PersonneForm(ModelForm):
         model = Personne
         exclude = ['isadmin','idimage']
 
-        # nom = models.CharField(max_length=25, blank=True, null=True)
-        # prenom = models.CharField(max_length=25, blank=True, null=True)
-        # numero = models.IntegerField(blank=True, null=True)
-        # mail = models.CharField(max_length=50, blank=True, null=True)
-        # mdp = models.CharField(max_length=50, blank=True, null=True)
+        def clean(self):
+            cleaned_data = super().clean()
+            mdp= cleaned_data.get("mdp")
+            mdp2 = cleaned_data.get("mdp2")
+            mail = cleaned_data.get("mail")
+            if mail :
+                x = Personne.objects.filter(mail = mail).count()
+                if x == 1:
+                    raise forms.ValidationError(
+                        "Ce mail est déjà utilisé !  "
+                    )
+
+
+            if mdp and mdp2:
+                # Only do something if both fields are valid so far.
+                if mdp2 != mdp:
+                    raise forms.ValidationError(
+                        "Les mots de passes ne correspondent pas ! "
+                    )
 
 class ConnexionForm(forms.Form):
     mail = forms.EmailField(label='Email', max_length=100)
