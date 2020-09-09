@@ -23,47 +23,50 @@ Il vous faudra :
 Veuillez suivre les étapes d'installation
 
 Installer virtualenv :
+```
 
   py -m pip install --user virtualenv
+  ```
   
 Créer un environnement virtuel :
-
+```
   py -m venv env
-  
+  ```
 Activer l'environnement virtuel :
-  
+  ```
   .\env\Scripts\activate
-
+```
 Aller dans l'emplacement ou l'on veut créer le projet :
-
+```
   cd/home/my-project/
-
+```
 Il faudra cloner l'application :
-
+```
   git clone git@github.com:nekorpeche/puppify.git.
-  
+```  
 Il faudra se déplacer vers le répertoire : 
- 
+ ```
   cd puppify
-  
+ ``` 
 Télécharger les packages avec la commande :
-
+```
   pip install -r requirements.txt
-  
+  ```
 Lancez le serveur Postgres et lancer la commande suivante pour créer une base de données :
-
+```
   CREATE DATABASE databasename;
-  
+```  
 Intégrer la base de données :
-
+```
   psql databasename < puppify_shema.sql
-
+```
 Peupler la base de données : 
-  
+  ```
   psql databasename < puppify_data.sql
-  
+```  
 Modifier les identifiants d'accès à la base de données dans le fichier settings.py :
 
+```  
   DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql',
@@ -74,10 +77,13 @@ Modifier les identifiants d'accès à la base de données dans le fichier settin
           'HOST': 'localhost'
       }
   }
+  ```
   
   Lancer la commande :
+  ```
   
     python manage.py makemigrations
+  ```
     
   Et pour finaliser lancez la commande :
   
@@ -92,8 +98,10 @@ Modifier les identifiants d'accès à la base de données dans le fichier settin
 ## Les tests
 
 Il faut lancer les tests avec la commande :
+```
 
   python manage.py test
+ ```
 
 
 
