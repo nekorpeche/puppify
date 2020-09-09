@@ -1,87 +1,106 @@
-# Project Title
+# Puppify
+Projet chef_doeuvre
 
-One Paragraph of project description goes here
+Puppify est une application Web d’adoption animale développé avec le Framework Django et une base de données PostgreSQL. Pour l’instant le site ne propose que des chiens et des chats.
 
-## Getting Started
+## Introduction
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Ces instructions vont vous permettre d'avoir une copie du projet afin de tester l'application sur votre machine locale. Veuillez lire les notes de déploiement pour savoir comment déployer l'application sur un système.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
+### Pré-requis
 
-```
-Give examples
-```
+Il vous faudra : 
+ - Un serveur PostgreSQL 10.12
+ - Le framework Django 3.0.4,
+ - Django-Rest-Framework 3.11.0
+ - Appareil W10
 
-### Installing
 
-A step by step series of examples that tell you how to get a development env running
+### Installation
 
-Say what the step will be
+Veuillez suivre les étapes d'installation
 
-```
-Give the example
-```
+Installer virtualenv :
 
-And repeat
+  py -m pip install --user virtualenv
+  
+Créer un environnement virtuel :
 
-```
-until finished
-```
+  py -m venv env
+  
+Activer l'environnement virtuel :
+  
+  .\env\Scripts\activate
 
-End with an example of getting some data out of the system or using it for a little demo
+Aller dans l'emplacement ou l'on veut créer le projet :
 
-## Running the tests
+  cd/home/my-project/
 
-Explain how to run the automated tests for this system
+Il faudra cloner l'application :
 
-### Break down into end to end tests
+  git clone git@github.com:nekorpeche/puppify.git.
+  
+Il faudra se déplacer vers le répertoire : 
+ 
+  cd puppify
+  
+Télécharger les packages avec la commande :
 
-Explain what these tests test and why
+  pip install -r requirements.txt
+  
+Lancez le serveur Postgres et lancer la commande suivante pour créer une base de données :
 
-```
-Give an example
-```
+  CREATE DATABASE databasename;
+  
+Intégrer la base de données :
 
-### And coding style tests
+  psql databasename < puppify_shema.sql
 
-Explain what these tests test and why
+Peupler la base de données : 
+  
+  psql databasename < puppify_data.sql
+  
+Modifier les identifiants d'accès à la base de données dans le fichier settings.py :
 
-```
-Give an example
-```
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql',
 
-## Deployment
+          'NAME': 'databasename',
+          'USER': '',
+          'PASSWORD': '',
+          'HOST': 'localhost'
+      }
+  }
+  
+  Lancer la commande :
+  
+    python manage.py makemigrations
+    
+  Et pour finaliser lancez la commande :
+  
+    python manage.py migrate
+    
+ Lancez l'application : 
+ 
+    python manage.py runserver
 
-Add additional notes about how to deploy this on a live system
 
-## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## Les tests
 
-## Contributing
+Il faut lancer les tests avec la commande :
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+  python manage.py test
 
-## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+## Auteur
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Mathusha Thirulogasingam** 
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
